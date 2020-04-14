@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IMovable {
 
     [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private GameObject weaponPrefab;
 
     private Vector3 screenBounds;
     private bool canShoot = true;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour, IMovable {
     }
 
     private void Shoot() {
-        Debug.Log("can shoot");
+
         StartCoroutine(ShootCoolDown(2f));
     }
 
@@ -49,5 +50,9 @@ public class PlayerController : MonoBehaviour, IMovable {
         if (Mathf.Abs(transform.position.y) > screenBounds.y) {
             transform.position = new Vector2(transform.position.x, -transform.position.y);
         }
+    }
+
+    public void SetWeaponType(GameObject weapon) {
+        weaponPrefab = weapon;
     }
 }
