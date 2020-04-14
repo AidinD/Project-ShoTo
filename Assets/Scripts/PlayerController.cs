@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : Movables {
+public class PlayerController : MonoBehaviour, IMovable {
 
     [SerializeField] private float movementSpeed = 5f;
 
+    private Vector3 screenBounds;
     private bool canShoot = true;
+
+    private void Start() {
+        screenBounds = GameSceneManager.GetScreenBounds();
+    }
 
     private void Update() {
         MovePlayer();
@@ -36,4 +41,13 @@ public class PlayerController : Movables {
         canShoot = true;
     }
 
+    public void Teleport() {
+        if (Mathf.Abs(transform.position.x) > screenBounds.x) {
+            transform.position = new Vector2(-transform.position.x, transform.position.y);
+        }
+
+        if (Mathf.Abs(transform.position.y) > screenBounds.y) {
+            transform.position = new Vector2(transform.position.x, -transform.position.y);
+        }
+    }
 }
