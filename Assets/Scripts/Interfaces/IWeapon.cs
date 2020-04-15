@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IWeapon {
     Transform[] Nozzle { get; set; }
 
-    void Shoot();
+    void Shoot(float speed);
 }

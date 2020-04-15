@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IMovable {
-    [SerializeField] private float speed = 10f;
+    public float Speed { get; set; }
 
     private Vector3 screenBounds;
     private bool canShoot = true;
@@ -13,12 +13,11 @@ public class Bullet : MonoBehaviour, IMovable {
     }
 
     private void Update() {
-        transform.Translate(Vector3.up * speed * Time.deltaTime);
+        transform.Translate(Vector3.up * Speed * Time.deltaTime);
         Teleport();
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("triggered");
         Destroy(gameObject);
         // Todo object pooling
     }
