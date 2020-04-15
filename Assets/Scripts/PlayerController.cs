@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour, IMovable {
 
         if (Input.GetButton("Jump") || Input.GetButton("Fire1")) {
             weaponController.Shoot();
-
         }
     }
 

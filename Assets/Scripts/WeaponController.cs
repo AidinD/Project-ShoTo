@@ -1,30 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class WeaponController : MonoBehaviour {
     [SerializeField] private float bulletSpeed = 6f;
+    [SerializeField] private float coolDown = 0.2f;
     [SerializeField] private GameObject[] weaponTypes;
 
+    public float BulletSpeed { get; set; }
+    public float CoolDown { get; set; }
     private GameObject weaponType;
     private IWeapon weapon;
     private bool canShoot = true;
 
     private void Awake() {
-        SetWeaponType(weaponTypes[1]);
+        SetWeaponType(weaponTypes[1].name);
+        CoolDown = coolDown;
+        BulletSpeed = bulletSpeed;
     }
 
     public void Shoot() {
         if (canShoot) {
-            weapon.Shoot(bulletSpeed);
+            weapon.Shoot(BulletSpeed);
             canShoot = false;
-            StartCoroutine(ShootCoolDown(0.2f));
+            StartCoroutine(ShootCoolDown(CoolDown));
         }
     }
 
-    public void SetWeaponType(GameObject newWeaponType) {
+    public void SetWeaponType(string newWeaponTypeName) {
         weaponType?.SetActive(false);
-        weaponType = newWeaponType;
+        var weaponInArray = weaponTypes.FirstOrDefault(w => w.name == newWeaponTypeName);
+        weaponType = weaponInArray;
         weaponType.SetActive(true);
         weapon = weaponType.GetComponent<IWeapon>();
     }
