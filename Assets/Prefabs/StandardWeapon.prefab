@@ -71,6 +71,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5659146607402548440}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 377f92fd1e075cd4eb3780315391fd85, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bceca58005930e42ba555a386be5474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nozzle:
+  - {fileID: 7884492723084581474}
+  bulletPrefab: {fileID: 2502540460753961234, guid: a558e22bc9a850d43bfd9c3ec8493b30,
+    type: 3}

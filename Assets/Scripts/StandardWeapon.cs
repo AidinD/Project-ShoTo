@@ -3,15 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class StandardWeapon : MonoBehaviour, IWeapon {
+    [SerializeField] private Transform[] nozzle;
 
-    [SerializeField]
-    public GameObject[] nozzle { get; set; }
+    public Transform[] Nozzle { get; set; }
 
-    private void Awake() {
+    [SerializeField] private GameObject bulletPrefab;
 
+    private void Start() {
+        Nozzle = nozzle;
+        Debug.Log("hejsasn " + Nozzle.Length);
     }
 
     public void Shoot() {
-        throw new System.NotImplementedException();
+        if (Nozzle.Length > 0) {
+            for (int i = 0; i < Nozzle.Length; i++) {
+                Instantiate(bulletPrefab, Nozzle[i].transform.position, Quaternion.identity);
+            }
+        }
     }
 }

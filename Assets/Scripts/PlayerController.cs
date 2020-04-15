@@ -6,10 +6,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IMovable {
 
     [SerializeField] private float movementSpeed = 5f;
-    [SerializeField] private GameObject weaponPrefab;
+    [SerializeField] private GameObject[] weaponTypes;
 
     private Vector3 screenBounds;
     private bool canShoot = true;
+    private GameObject weaponType;
+    private IWeapon weapon;
+
+    private void Awake() {
+        SetWeaponType(weaponTypes[0]);
+        //weapon = weapons[0].GetComponent<IWeapon>();
+    }
 
     private void Start() {
         screenBounds = GameSceneManager.GetScreenBounds();
@@ -18,7 +25,7 @@ public class PlayerController : MonoBehaviour, IMovable {
     private void Update() {
         MovePlayer();
 
-        if ((Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1")) && canShoot) {
+        if ((Input.GetButton("Jump") || Input.GetButton("Fire1")) && canShoot) {
             Shoot();
             canShoot = false;
         }
@@ -33,8 +40,8 @@ public class PlayerController : MonoBehaviour, IMovable {
     }
 
     private void Shoot() {
-
-        StartCoroutine(ShootCoolDown(2f));
+        weapon.Shoot();
+        StartCoroutine(ShootCoolDown(0.2f));
     }
 
     private IEnumerator ShootCoolDown(float coolDown) {
@@ -52,7 +59,10 @@ public class PlayerController : MonoBehaviour, IMovable {
         }
     }
 
-    public void SetWeaponType(GameObject weapon) {
-        weaponPrefab = weapon;
+    public void SetWeaponType(GameObject newWeaponType) {
+        weaponType?.SetActive(false);
+        weaponType = newWeaponType;
+        weaponType.SetActive(true);
+        weapon = weaponType.GetComponent<IWeapon>();
     }
 }

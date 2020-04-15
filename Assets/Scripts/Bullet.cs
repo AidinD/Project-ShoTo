@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour, IMovable {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        Debug.Log("triggered");
         Destroy(gameObject);
         // Todo object pooling
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface IWeapon {
-    GameObject[] nozzle { get; set; }
+    Transform[] Nozzle { get; set; }
 
     void Shoot();
 }
