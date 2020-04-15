@@ -2,11 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IMovable {
+public class Bullet : MonoBehaviour, IMovable, IDamageable {
+    [SerializeField] private int damage = 1;
+    [SerializeField] private int health = 1;
+
     public float Speed { get; set; }
+    public int Health { get; set; }
 
     private Vector3 screenBounds;
-    private bool canShoot = true;
+
+    private void Awake() {
+        Health = health;
+    }
 
     private void Start() {
         screenBounds = GameSceneManager.GetScreenBounds();
@@ -18,8 +25,7 @@ public class Bullet : MonoBehaviour, IMovable {
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        Destroy(gameObject);
-        // Todo object pooling
+        TakeDamage(1);
     }
 
     public void Teleport() {
@@ -30,5 +36,17 @@ public class Bullet : MonoBehaviour, IMovable {
         if (Mathf.Abs(transform.position.y) > screenBounds.y) {
             transform.position = new Vector2(transform.position.x, -transform.position.y);
         }
+    }
+
+    public void TakeDamage(int damage) {
+        Health -= damage;
+        if (Health <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        Destroy(gameObject);
+        // Todo object pooling
     }
 }
