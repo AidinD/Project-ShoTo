@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage
+public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IGivePoints
 {
-    [SerializeField] private int damage = 1;
     [SerializeField] private int health = 1;
+    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField] private int points = 10;
 
     public int Health { get; set; }
     public float MovementSpeed { get; set; }
-    public int Damage { get; set; }
+    public int Points { get; set; }
 
     private Vector3 screenBounds;
 
     private void Awake()
     {
         Health = health;
-        Damage = damage;
+        MovementSpeed = movementSpeed;
+        Points = points;
     }
 
     private void Start()
@@ -30,24 +32,30 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage
         Teleport();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public virtual void Move()
     {
-        DoDamage(other);
-        TakeDamage(1);
+        transform.Translate(Vector3.down * MovementSpeed * Time.deltaTime);
     }
 
-    public void DoDamage(Collider2D other)
+    public void Die()
     {
-        var hit = other.gameObject.GetComponent<IDamageable>();
-        if (hit != null)
+        GivePoints();
+        Destroy(gameObject);
+        // Todo Die and stuff
+    }
+
+    public void GivePoints()
+    {
+        // Call some manager and give points
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health <= 0)
         {
-            hit.TakeDamage(Damage);
+            Die();
         }
-    }
-
-    public void Move()
-    {
-        transform.Translate(Vector3.up * MovementSpeed * Time.deltaTime);
     }
 
     public void Teleport()
@@ -63,18 +71,4 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            Die();
-        }
-    }
-
-    public void Die()
-    {
-        Destroy(gameObject);
-        // Todo object pooling
-    }
 }
