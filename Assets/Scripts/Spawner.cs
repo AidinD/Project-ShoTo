@@ -20,6 +20,5 @@ public class Spawner : MonoBehaviour
         yield return new WaitForSeconds(spawnRate);
         Instantiate(enemies[0], new Vector2(spawnPosition, screenBounds.y), Quaternion.identity);
         StartCoroutine(Spawn(spawnRate));
-
     }
 }

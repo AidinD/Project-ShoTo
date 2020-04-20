@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage
+public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage, IPooledObject
 {
     [SerializeField] private int damage = 1;
     [SerializeField] private int health = 1;
@@ -34,6 +34,11 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage
     {
         DoDamage(other);
         TakeDamage(1);
+    }
+
+    public void OnObjectSpawn()
+    {
+        Debug.Log("I spawned");
     }
 
     public void DoDamage(Collider2D other)
