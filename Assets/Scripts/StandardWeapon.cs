@@ -21,8 +21,9 @@ public class StandardWeapon : MonoBehaviour, IWeapon
         {
             for (int i = 0; i < Nozzle.Length; i++)
             {
-                // Todo object pooling
-                var bullet = Instantiate(bulletPrefab, Nozzle[i].transform.position, Nozzle[i].rotation);
+                var bullet = PoolManager.Instance.RequestFromPool("StandardBullet");
+                bullet.transform.position = nozzle[i].transform.position;
+                bullet.transform.rotation = nozzle[i].transform.rotation;
                 bullet.GetComponent<Bullet>().MovementSpeed = speed;
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private float spawnRate = 2f;
-    [SerializeField] private GameObject[] enemies;
+    [SerializeField] private EnemyController[] enemies;
     private Vector3 screenBounds;
 
     private void Start()
@@ -18,7 +18,10 @@ public class Spawner : MonoBehaviour
     {
         float spawnPosition = Random.Range(-screenBounds.x, screenBounds.x);
         yield return new WaitForSeconds(spawnRate);
-        Instantiate(enemies[0], new Vector2(spawnPosition, screenBounds.y), Quaternion.identity);
+        Debug.Log("tag" + enemies[0].PoolTag);
+        var enemy = PoolManager.Instance.RequestFromPool(enemies[0].PoolTag);
+        enemy.transform.position = new Vector2(spawnPosition, screenBounds.y);
+        enemy.transform.rotation = Quaternion.identity;
         StartCoroutine(Spawn(spawnRate));
     }
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IGivePoints
+public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IGivePoints, IPooledObject
 {
+    [SerializeField] private string poolTag;
     [SerializeField] private int health = 1;
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private int points = 10;
@@ -11,15 +12,9 @@ public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IG
     public int Health { get; set; }
     public float MovementSpeed { get; set; }
     public int Points { get; set; }
+    public string PoolTag { get { return poolTag; } }
 
     private Vector3 screenBounds;
-
-    private void Awake()
-    {
-        Health = health;
-        MovementSpeed = movementSpeed;
-        Points = points;
-    }
 
     private void Start()
     {
@@ -40,7 +35,7 @@ public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IG
     public void Die()
     {
         GivePoints();
-        Destroy(gameObject);
+        OnObjectDestroy();
         // Todo Die and stuff
     }
 
@@ -71,4 +66,21 @@ public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IG
         }
     }
 
+    public virtual string GetTag()
+    {
+        return "EnemyController";
+    }
+
+    public void OnObjectSpawn()
+    {
+        Debug.Log("movement SPeed" + movementSpeed);
+        Health = health;
+        MovementSpeed = movementSpeed;
+        Points = points;
+    }
+
+    public void OnObjectDestroy()
+    {
+        PoolManager.Instance.ReturnToPool(poolTag, gameObject);
+    }
 }

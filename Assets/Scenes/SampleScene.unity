@@ -158,10 +158,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pools:
-  - tag: 
-    prefab: {fileID: 0}
-    container: {fileID: 0}
-    size: 0
+  - tag: StandardBullet
+    prefab: {fileID: 2502540460753961234, guid: a558e22bc9a850d43bfd9c3ec8493b30,
+      type: 3}
+    container: {fileID: 2092686867}
+    size: 10
+  - tag: SimpleEnemy
+    prefab: {fileID: 375679597017042252, guid: 109dbf7b96c83b942b1f7a3af230dca2, type: 3}
+    container: {fileID: 2092686867}
+    size: 50
+  - tag: PowerUp
+    prefab: {fileID: 2502540460753961234, guid: a558e22bc9a850d43bfd9c3ec8493b30,
+      type: 3}
+    container: {fileID: 2092686867}
+    size: 10
 --- !u!114 &273561043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,6 +502,36 @@ MonoBehaviour:
   weaponTypes:
   - {fileID: 132481067}
   - {fileID: 1138763567}
+--- !u!1 &2092686867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2092686868}
+  m_Layer: 0
+  m_Name: PoolContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2092686868
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2092686867}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.0753212, y: -0.81394213, z: -14.767578}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &375679596670108415
 PrefabInstance:
   m_ObjectHideFlags: 0

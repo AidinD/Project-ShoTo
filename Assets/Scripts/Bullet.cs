@@ -13,12 +13,6 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage, IPooledOb
 
     private Vector3 screenBounds;
 
-    private void Awake()
-    {
-        Health = health;
-        Damage = damage;
-    }
-
     private void Start()
     {
         screenBounds = GameSceneManager.GetScreenBounds();
@@ -38,7 +32,8 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage, IPooledOb
 
     public void OnObjectSpawn()
     {
-        Debug.Log("I spawned");
+        Health = health;
+        Damage = damage;
     }
 
     public void DoDamage(Collider2D other)
@@ -79,7 +74,12 @@ public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage, IPooledOb
 
     public void Die()
     {
-        Destroy(gameObject);
+        OnObjectDestroy();
         // Todo object pooling
+    }
+
+    public void OnObjectDestroy()
+    {
+        PoolManager.Instance.ReturnToPool("StandardBullet", gameObject);
     }
 }
