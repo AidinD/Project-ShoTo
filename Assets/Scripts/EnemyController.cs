@@ -16,7 +16,7 @@ public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IG
 
     private Vector3 screenBounds;
 
-    private void Start()
+    protected virtual void Start()
     {
         screenBounds = GameSceneManager.GetScreenBounds();
     }
@@ -73,7 +73,6 @@ public abstract class EnemyController : MonoBehaviour, IMovable, IDamageable, IG
 
     public void OnObjectSpawn()
     {
-        Debug.Log("movement SPeed" + movementSpeed);
         Health = health;
         MovementSpeed = movementSpeed;
         Points = points;

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class WeaponController : MonoBehaviour {
+public class WeaponController : MonoBehaviour
+{
     [SerializeField] private float bulletSpeed = 6f;
     [SerializeField] private float coolDown = 0.2f;
     [SerializeField] private GameObject[] weaponTypes;
@@ -14,21 +15,25 @@ public class WeaponController : MonoBehaviour {
     private IWeapon weapon;
     private bool canShoot = true;
 
-    private void Awake() {
-        SetWeaponType(weaponTypes[1].name);
+    private void Awake()
+    {
+        SetWeaponType(weaponTypes[0].name);
         CoolDown = coolDown;
         BulletSpeed = bulletSpeed;
     }
 
-    public void Shoot() {
-        if (canShoot) {
+    public void Shoot()
+    {
+        if (canShoot)
+        {
             weapon.Shoot(BulletSpeed);
             canShoot = false;
             StartCoroutine(ShootCoolDown(CoolDown));
         }
     }
 
-    public void SetWeaponType(string newWeaponTypeName) {
+    public void SetWeaponType(string newWeaponTypeName)
+    {
         weaponType?.SetActive(false);
         var weaponInArray = weaponTypes.FirstOrDefault(w => w.name == newWeaponTypeName);
         weaponType = weaponInArray;
@@ -36,7 +41,8 @@ public class WeaponController : MonoBehaviour {
         weapon = weaponType.GetComponent<IWeapon>();
     }
 
-    private IEnumerator ShootCoolDown(float coolDown) {
+    private IEnumerator ShootCoolDown(float coolDown)
+    {
         yield return new WaitForSeconds(coolDown);
         canShoot = true;
     }

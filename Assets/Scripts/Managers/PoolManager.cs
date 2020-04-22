@@ -46,7 +46,6 @@ public class PoolManager : Singleton<PoolManager>
             {
                 poolObject.SetActive(true);
                 var pooledObjectComponent = poolObject.GetComponent<IPooledObject>();
-                Debug.Log("pooledObjectComp" + pooledObjectComponent);
                 if (pooledObjectComponent != null)
                 {
                     pooledObjectComponent.OnObjectSpawn();

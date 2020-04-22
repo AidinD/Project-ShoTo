@@ -18,8 +18,8 @@ public class Spawner : MonoBehaviour
     {
         float spawnPosition = Random.Range(-screenBounds.x, screenBounds.x);
         yield return new WaitForSeconds(spawnRate);
-        Debug.Log("tag" + enemies[0].PoolTag);
-        var enemy = PoolManager.Instance.RequestFromPool(enemies[0].PoolTag);
+        var enemyToSpawn = Random.Range(0, enemies.Length);
+        var enemy = PoolManager.Instance.RequestFromPool(enemies[enemyToSpawn].PoolTag);
         enemy.transform.position = new Vector2(spawnPosition, screenBounds.y);
         enemy.transform.rotation = Quaternion.identity;
         StartCoroutine(Spawn(spawnRate));
