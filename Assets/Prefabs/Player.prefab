@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 425210219078611212}
   - component: {fileID: 425210219078611213}
   - component: {fileID: 425210219078611218}
-  - component: {fileID: 425210219078611219}
+  - component: {fileID: 3237239552830949911}
   - component: {fileID: 425210219078611214}
+  - component: {fileID: 1912614330}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -75,12 +76,13 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 2807314771408455767, guid: a29a8551c2fd45444a17443e78db294f,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1.88, y: 3.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -107,8 +109,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &425210219078611219
-CircleCollider2D:
+--- !u!70 &3237239552830949911
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,12 +119,12 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.1
+  m_Size: {x: 0.5371429, y: 1.0285715}
+  m_Direction: 0
 --- !u!114 &425210219078611214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,8 +137,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e0a49c9410e4594194d9ef795031f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 1
   movementSpeed: 5
-  weapon: {fileID: 0}
+--- !u!114 &1912614330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425210219078611215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09796a045b750c94a97ff03f51f214f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 6
+  coolDown: 0.2
+  weaponTypes:
+  - {fileID: 838482992886430804}
+  - {fileID: 3388832734460309805}
 --- !u!1001 &4984270985972039820
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -152,7 +171,7 @@ PrefabInstance:
     - target: {fileID: 1223979290783937311, guid: b97d72973667d3244a069283ec05fe8c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 1223979290783937311, guid: b97d72973667d3244a069283ec05fe8c,
         type: 3}
@@ -204,13 +223,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gun
       objectReference: {fileID: 0}
-    - target: {fileID: 5659146607402548440, guid: b97d72973667d3244a069283ec05fe8c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b97d72973667d3244a069283ec05fe8c, type: 3}
+--- !u!1 &838482992886430804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5659146607402548440, guid: b97d72973667d3244a069283ec05fe8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 4984270985972039820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6185626622188204947 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1223979290783937311, guid: b97d72973667d3244a069283ec05fe8c,
@@ -227,12 +247,12 @@ PrefabInstance:
     - target: {fileID: 1223979290783937311, guid: a59ecaa67264cd14b8747510461221af,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.07
       objectReference: {fileID: 0}
     - target: {fileID: 1223979290783937311, guid: a59ecaa67264cd14b8747510461221af,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 1223979290783937311, guid: a59ecaa67264cd14b8747510461221af,
         type: 3}
@@ -284,8 +304,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShotGun
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5659146607402548440, guid: a59ecaa67264cd14b8747510461221af,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4223101352475805443, guid: a59ecaa67264cd14b8747510461221af, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a59ecaa67264cd14b8747510461221af, type: 3}
+--- !u!1 &3388832734460309805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5659146607402548440, guid: a59ecaa67264cd14b8747510461221af,
+    type: 3}
+  m_PrefabInstance: {fileID: 7029800924166819317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8174785526955605738 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1223979290783937311, guid: a59ecaa67264cd14b8747510461221af,
