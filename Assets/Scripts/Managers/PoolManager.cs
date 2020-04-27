@@ -36,7 +36,6 @@ public class PoolManager : Singleton<PoolManager>
     {
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.LogWarning("Tag " + tag + " does not exist in pool");
             return null;
         }
         if (poolDictionary[tag].Count > 0)

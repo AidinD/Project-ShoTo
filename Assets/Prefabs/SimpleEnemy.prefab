@@ -134,7 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7790ccbba75469b4a9c3a5cf0390c4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolTag: SimpleEnemy
-  health: 1
-  movementSpeed: 3
-  points: 10
+  unit: {fileID: 11400000, guid: 5993e0eb94589e843a40af9fd3d926fa, type: 2}

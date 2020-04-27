@@ -2,84 +2,58 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IMovable, IDamageable, IDoDamage, IPooledObject
+public class Bullet : Entity, IPooledObject
 {
-    [SerializeField] private int damage = 1;
-    [SerializeField] private int health = 1;
+    [SerializeField] private BulletSO bullet;
 
-    public int Health { get; set; }
-    public float MovementSpeed { get; set; }
-    public int Damage { get; set; }
+    public BulletSO BulletType { get { return bullet; } private set { } }
 
-    private Vector3 screenBounds;
-
-    private void Start()
+    protected override void Awake()
     {
-        screenBounds = GameSceneManager.GetScreenBounds();
+        base.Awake();
+        BulletType = bullet;
+
     }
 
-    private void Update()
-    {
-        Move();
-        Teleport();
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         DoDamage(other);
         TakeDamage(1);
     }
 
-    public void OnObjectSpawn()
+    protected override void Move()
     {
-        Health = health;
-        Damage = damage;
+        transform.Translate(Vector3.up * bullet.MovementSpeed * Time.deltaTime);
     }
 
-    public void DoDamage(Collider2D other)
+
+    private void DoDamage(Collider2D other)
     {
-        var hit = other.gameObject.GetComponent<IDamageable>();
-        if (hit != null)
-        {
-            hit.TakeDamage(Damage);
-        }
+        var hit = other.gameObject.GetComponent<Entity>();
+        hit?.TakeDamage(bullet.Damage);
     }
 
-    public void Move()
+    public override void TakeDamage(int damage)
     {
-        transform.Translate(Vector3.up * MovementSpeed * Time.deltaTime);
-    }
-
-    public void Teleport()
-    {
-        if (Mathf.Abs(transform.position.x) > screenBounds.x)
-        {
-            transform.position = new Vector2(-transform.position.x, transform.position.y);
-        }
-
-        if (Mathf.Abs(transform.position.y) > screenBounds.y)
-        {
-            transform.position = new Vector2(transform.position.x, -transform.position.y);
-        }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
+        bullet.CurrentHealth -= damage;
+        if (bullet.CurrentHealth <= 0)
         {
             Die();
         }
     }
 
-    public void Die()
+    protected override void Die()
     {
         OnObjectDestroy();
-        // Todo object pooling
+    }
+
+    public void OnObjectSpawn()
+    {
+        bullet.CurrentHealth = bullet.MaxHealth;
     }
 
     public void OnObjectDestroy()
     {
-        PoolManager.Instance.ReturnToPool("StandardBullet", gameObject);
+        PoolManager.Instance.ReturnToPool(bullet.BulletName, gameObject);
     }
 }

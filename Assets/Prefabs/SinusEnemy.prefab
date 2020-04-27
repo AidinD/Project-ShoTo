@@ -134,7 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fab81759fdf4f94d9c4a57b734cd135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolTag: SinusEnemy
-  health: 1
-  movementSpeed: 1.8
-  points: 15
+  unit: {fileID: 11400000, guid: 8f9e8b26ca5127c4bac23ee25c72b1f6, type: 2}

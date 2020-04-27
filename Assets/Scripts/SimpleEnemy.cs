@@ -2,6 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleEnemy : EnemyController
+public class SimpleEnemy : Enemy
 {
 }

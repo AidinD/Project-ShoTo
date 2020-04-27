@@ -24,7 +24,7 @@ public class StandardWeapon : MonoBehaviour, IWeapon
                 var bullet = PoolManager.Instance.RequestFromPool("StandardBullet");
                 bullet.transform.position = nozzle[i].transform.position;
                 bullet.transform.rotation = nozzle[i].transform.rotation;
-                bullet.GetComponent<Bullet>().MovementSpeed = speed;
+                bullet.GetComponent<Bullet>().BulletType.MovementSpeed = speed;
             }
         }
     }
