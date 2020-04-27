@@ -15,7 +15,7 @@ MonoBehaviour:
   UnitName: Player
   MaxHealth: 1
   BaseDamage: 1
-  MovementSpeed: 20.45
+  MovementSpeed: 10
   Points: 0
   Sprite: {fileID: 2807314771408455767, guid: a29a8551c2fd45444a17443e78db294f, type: 3}
   CurrentHealth: 0
